@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- get 403 error 解决防盗链问题，设置referrer policy(来源策略) 发送请求时不会带上referrer信息 服务器就无法拦截 -->
+    <meta name="referrer" content="no-referrer">
+    <title>Document</title>
+    <style>
+        .infoImg {
+            width: 200px;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <button @click="btnSwitch">按钮</button>
+        </div>
+        <template v-if="QRcodeBoolean">
+            <img src="https://bkimg.cdn.bcebos.com/pic/d8f9d72a6059252dd42a6c20c0d1143b5bb5c9ea13f6?x-bce-process=image/watermark,image_d2F0ZXIvYmFpa2UxODA=,g_7,xp_5,yp_5/format,f_auto" alt="" class="infoImg" />
+        </template>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    QRcodeBoolean: true
+                }
+            },
+            methods: {
+                btnSwitch() {
+                    this.QRcodeBoolean = !this.QRcodeBoolean
+                }
+            },
+        });
+        app.mount('#app')
+    </script>
+</body>
+</html>

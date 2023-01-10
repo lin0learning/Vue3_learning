@@ -1,0 +1,161 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    body,
+    p,
+    h3,
+    h5,
+    h4 {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #f5f5f5;
+      font: 12px/1.5 Helvetica Neue, Helvetica, Arial, Microsoft Yahei,
+        Hiragino Sans GB, Heiti SC, WenQuanYi Micro Hei, sans-serif;
+    }
+
+    h4 {
+      font-weight: 400;
+    }
+
+    /* a的重置 */
+    a {
+      text-decoration: none;
+      color: #333;
+      outline: none;
+    }
+
+    .item {
+      box-sizing: border-box;
+      width: 236px;
+      height: 243px;
+      padding: 7px 7px 8px 7px;
+      margin: 100px auto;
+      background-color: #fff;
+      border: 1px solid transparent;
+    }
+
+    .item .img-link {
+      display: block;
+      width: 100%;
+      margin-bottom: 8px;
+    }
+
+    .item .img-link img {
+      width: 220px;
+      height: 124px;
+      vertical-align: middle;
+    }
+
+    .item .title {
+      height: 40px;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .item .info {
+      height: 18px;
+      /* line-height: 18px; */
+      color: #999;
+      margin-bottom: 3px;
+    }
+
+    .item .task {
+      margin-right: 5px;
+    }
+
+    .item .teacher::before {
+      content: "";
+      display: inline-block;
+      width: 1px;
+      height: 12px;
+      margin-right: 10px;
+      background-color: #999;
+      vertical-align: -1px;
+    }
+
+    .item .teacher {
+      color: #999;
+    }
+
+    .item .desc {
+      height: 24px;
+      line-height: 24px;
+      font-size: 14px;
+      color: #999;
+    }
+
+    .item .desc .price {
+      color: #999;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    .item:hover {
+      border-color: #ddd;
+      box-shadow: 1px 1px 2px 1px #ececec;
+    }
+
+    .item .desc .active {
+      color: #f4621f;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="item">
+      <a :href="href" target="_blank" class="img-link">
+        <img :src="imgUrl" alt="" />
+      </a>
+      <h4 class="title">
+        <a :href="href" target="_blank">{{courceName}}</a>
+      </h4>
+      <div class="info">
+        <span class="task">共{{courceCount}}节</span>
+        <a :href="href" class="teacher">{{teacher}}</a>
+      </div>
+      <div class="desc">
+        <span class="price" :class="{active: isActive}" @click="changeActive">¥{{price}}</span>
+        <span class="user">{{peopleCount}}人最近报名</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="../lib/vue.js"></script>
+  <script>
+    // 1.创建app
+    const app = Vue.createApp({
+      // data: option api
+      data: function () {
+        return {
+          href: "https://ke.qq.com/course/3118036?taid=10705330542449620",
+          courceName: "新概念英语第一册精讲公开体验课",
+          teacher: "英语金老师",
+          price: "1000",
+          peopleCount: 1189,
+          courceCount: 30,
+          imgUrl: "https://10.idqqimg.com/qqcourse_logo_ng/ajNVdqHZLLCE6qtSOvsmjFTcXL4rGn8LsMibXwUMUDmhfBDvBjskKia5l0XdIPmOuUqMXLPUibBXYM/356",
+          isActive: false,
+        };
+      },
+      //methods: option api
+      methods: {
+        changeActive() {
+          this.isActive = !this.isActive;
+        },
+      },
+    });
+    // 2.挂载app
+    app.mount("#app");
+  </script>
+</body>
+
+</html>

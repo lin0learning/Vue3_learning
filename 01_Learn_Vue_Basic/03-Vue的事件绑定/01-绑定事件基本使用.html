@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+        }
+        .box1 {
+            background-color: #eee;
+        }
+        .box2 {
+            background-color: skyblue;
+        }
+        .box3 {
+            background-color: aqua;
+        }
+        .box4 {
+            background-color: #efefef;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 1. 绑定事件基本写法 -->
+        <div class="box box1" v-on:click="clickBox">{{ message }}</div>
+        <!-- 2. 精简写法（掌握） -->
+        <div class="box box2" @click="clickBox">{{ message }}</div>
+        <!-- 3. 绑定其他事件 -->
+        <div class="box box3" @mousemove="mousemoveBox">{{ message }}</div>
+        <!-- 4. 绑定多个事件 -->
+        <div class="box box4" @mousemove="mousemoveBox" @click="clickBox">{{ message }}</div>
+        <button>按钮</button>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    message: "Hello Vue"
+                }
+            },
+            methods: {
+                clickBox() {
+                    console.log("1")
+                },
+                mousemoveBox() {
+                    console.log("2")
+                }
+            },
+        });
+        app.mount('#app')
+    </script>
+</body>
+</html>

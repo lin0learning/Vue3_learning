@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .item {
+            float: left;
+            margin-right: 30px;
+            text-align: center;
+        }
+        .box .iphone-se {
+            background-size: 19px 54px;
+            width: 19px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 1. 简单遍历 -->
+        <ul>
+            选择男抢手职业：
+            <li v-for="prof in carrers">{{ prof }}</li>
+        </ul>
+        <!-- 2. 带索引遍历 -->
+        <ul>
+            选择男抢手职业：
+            <li v-for="(prof, index) in carrers">{{index+1}} - {{prof}}</li>
+        </ul>
+        <!-- 3. 遍历数组复杂数据 -->
+        <h2>商品列表</h2>
+        <!-- 采用解构赋值，非解构用 item in apples，后续item.xxx获取参数-->
+        <div class="item" v-for="({title, name, price, imgUrl}) in apples">
+            <div class="box"><img  :class="title" :src="imgUrl"></div>
+            <div>{{name}}</div>
+            <span>¥{{price}}</span>
+        </div>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    carrers: ["漫游枪手","枪炮师", "机械师", "弹药家", "合金战士"],
+                    apples: [
+                        {id: 01, title:"iphone-13-pro", name: "iPhone 13 Pro", price: "5999", imgUrl:"https://www.apple.com.cn/v/iphone/home/bh/images/chapternav/iphone_13_pro_light__bywz8u012wk2_large.svg"},
+                        {id: 02, title:"macbook-pro",name: "MacBook Pro", price: "14999", imgUrl: "https://www.apple.com.cn/v/macbook-pro/af/images/chapternav/macbook_pro_14_and_16__f6lz56ku7x6y_large.svg"},
+                        {id: 03, title:"macbook-air",name: "MacBook Air", price: "7999", imgUrl: "https://www.apple.com.cn/v/macbook-air/o/images/chapternav/macbook_air_m2__e8ziygi2lca6_large.svg"},
+                        {id: 04, title:"iphone-se",name: "iPhone SE", price: "3499", imgUrl: "https://www.apple.com.cn/v/iphone/home/bh/images/chapternav/iphone_se_light__fhg8duy6ffau_large.svg"}
+                    ]
+                }
+            }
+        });
+        app.mount('#app')
+    </script>
+</body>
+</html>

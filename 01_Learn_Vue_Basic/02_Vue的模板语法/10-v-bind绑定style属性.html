@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h2 style="color: green; font-size: 30px">示例文本</h2>
+        <!-- 2. style中的某些样式的值，来自于data中 -->
+        <!-- 2.1 动态绑定style -->
+        <h2 v-bind:style="{color: fontColor, fontSize: fontSize }">示例文本</h2>
+        <!-- 在{} 对象中, font-size中 "-" 不会被JS解析，需加上单引号 'font-size',或者使用驼峰命名，写成 fontSize -->
+        <!-- 2.2 动态绑定style,该属性为一个对象 -->
+        <h2 :style="objStyle">示例文本</h2>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    fontColor: "skyblue",
+                    fontSize: '30px',
+                    objStyle: {
+                        fontSize: '50px',
+                        color: "green"
+                    }
+                }
+            }
+        });
+        app.mount('#app')
+    </script>
+</body>
+</html>

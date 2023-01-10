@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div class="box" @click="divClick">
+            <!-- Vue提供的 .stop 修饰符，作用是阻止冒泡 -->
+            <button @click.stop="btnClick">按钮</button>
+        </div>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = Vue.createApp({
+            methods: {
+                btnClick(event) {
+                    // event.stopPropagation(); // 原生JS event 阻止冒泡
+                    console.log("btnClick")
+                },
+                divClick() {
+                    console.log("divClick")
+                }
+            },
+        });
+        app.mount('#app')
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h2>{{info.name}}</h2>
+        <button @click="changeInfo">Info</button>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    info: {
+                        name: "Liclo",
+                        age: 20
+                    }
+                }
+            },
+            methods: {
+                changeInfo() {
+                    this.info.name = 'Kicks Lounge'
+                }
+            },
+            watch:{
+                // 默认 wathc 监听不会进行深度侦听
+                // info(val, oldVal) {
+                //     console.log('wathc changed', val, oldVal);
+                // }
+                
+                // 进行深度侦听
+                info: {
+                    handler(val, oldVal) {
+                        console.log('watch changed', val, oldVal)
+                        console.log(val === oldVal);
+                    },
+                    // 侦听器选项:
+                    deep: true,
+                    // 该回调会在侦听开始之后被立刻调用
+                    immediate: true,
+                    // 字符串方法名
+                }
+            }
+        });
+        app.mount('#app')
+    </script>
+</body>
+</html>

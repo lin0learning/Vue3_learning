@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h2>{{fullname}}</h2>
+        <button @click="setFullname">按钮</button>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return{
+                    firstname: 'shadow',
+                    lastname: 'clo'
+                }
+            },
+            computed: {
+                // fullname() {
+                //     return this.firstname + " " + this.lastname
+                // }
+                // 完整写法:
+                fullname: {
+                    get() {
+                        return this.firstname + " " + this.lastname
+                    },
+                    // note: setter 用之非常少,一般不写入
+                    set(v) {
+                        const names = v.split(" ")
+                        this.firstname = names[0]
+                        this.lastname = names[1]
+                    }
+                }
+            },
+            methods: {
+                setFullname() {
+                    // 当前设置的值会传入到computed的set(v)中
+                    this.fullname = "time machine"
+                }
+            },
+        });
+        app.mount('#app')
+    </script>
+</body>
+</html>

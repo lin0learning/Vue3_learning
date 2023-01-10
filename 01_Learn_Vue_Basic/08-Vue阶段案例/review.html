@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            margin-top: 30px;
+            text-align: left;
+        }
+        table thead tr th:nth-child(1) {
+            width: 30px;
+        }
+        table thead tr th:nth-child(2) {
+            width: 240px;
+        }
+        table thead tr th:nth-child(3) {
+            width: 120px;
+        }
+        table thead tr th:nth-child(4) {
+            width: 100px;
+        }
+        table thead tr th:nth-child(5) {
+            width: 120px;
+        }
+        .amount {
+            border-width: 1px 0;
+            text-align: center;
+            width: 40px;
+            height: 18px;
+        }
+        thead tr th {
+            font-weight: 400;
+            color: #284767;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        tr {
+            height: 30px;
+            line-height: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        button {
+            background-color: #fff;
+            border:1px solid #666;
+            border-radius: 3px;
+        }
+        .btn1 {
+            width: 20px;
+            height: 20px;
+            line-height: 16px;
+            border-width: 1px;
+            cursor: pointer;
+        }
+        .btn2 {
+            width: 38px;
+            height: 20px;
+        }
+        .container {
+            margin-top: 30px;
+            display: flex;
+        }
+        .box {
+            flex: 2;
+        }
+        .total-price {
+            flex: 1;
+        }
+        .active {
+            background-color: #efefef;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <template v-if="books.length">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>操作</th>
+                        <th>出版日期</th>
+                        <th>价格</th>
+                        <th>购买数量</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item, index) in books" :key="item.id" @mouseover="MouseOver(index)" :class="{active: index===currentIndex}">
+                        <td>{{index + 1}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.date}}</td>
+                        <td>{{addUnit(item.price)}}</td>
+                        <td>
+                            <button class="btn1" :disabled="item.count === 1" @click="decrement(index)">-</button>
+                            <input class="amount" width="20px" :value="this.books[index].count" @input="this.books[index].count = $event.target.value">
+                            <button class="btn1" @click="increment(index)">+</button>
+                        </td>
+                        <td>
+                            <button class="btn2" @click="removeBook">移除</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="container">
+                <div class="box"></div>
+                <div class="total-price">Total Price: {{addUnit(CalcTotalPrice)}}</div>
+            </div>
+        </template>
+        <template v-else>
+            <div>
+                当前购物车为空
+            </div>
+        </template>
+    </div>
+    <script src="./data.js"></script>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    books: books,
+                    count: 0,
+                    currentIndex: -1
+                }
+            },
+            methods: {
+                increment(index) {
+                    this.books[index].count++
+                },
+                decrement(index) {
+                    this.books[index].count--
+                },
+                MouseOver(index) {
+                    this.currentIndex = index;
+                    console.log(this.currentIndex)
+                },
+                addUnit(price) {
+                    return '￥' + price
+                },
+                removeBook(index) {
+                    // console.log(index)
+                    // PointerEvent
+                    this.books.splice(index, 1)
+                }
+            },
+            computed: {
+                CalcTotalPrice() {
+                    let price = 0;
+                    for (const item of this.books) {
+                        price += item.price * item.count
+                    }
+                    return price
+                }
+            }
+        });
+        app.mount('#app')
+    </script>
+</body>
+</html>

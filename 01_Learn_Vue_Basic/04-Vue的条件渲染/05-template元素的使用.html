@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- template元素作为不可见的包裹元素 -->
+        <template v-if="Object.keys(info).length">
+            展示信息：
+            <li>姓名：{{info.name}}</li>
+            <li>年龄：{{info.age}}</li>
+        </template>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    info: {name: 'liclo', age: 20}
+                }
+            }
+        });
+        app.mount('#app')
+    </script>
+</body>
+</html>

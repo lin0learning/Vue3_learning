@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .abc {
+            width: 200px;
+            height: 100px;
+            margin: 10px auto;
+            border: 1px solid #eee;
+        }
+        .active {
+            color: skyblue;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 1. 基本绑定class -->
+        <h3 :class="classes"></h3>
+        <!-- 2. 对象语法的基本使用（键值对），可以包含多个键值对 -->
+        <button :class="{ active: isActive, why:true }" @click="btnClick">点击按钮</button>
+        <!-- 注意：原生的CSS class 并不会被对象语法覆盖掉 -->
+        <button class="abc" :class="getDynamicClasses()" @click="btnClick">点击按钮</button>
+        <!-- 3. 动态class可以使用数组语法（了解） -->
+        <h2 :class="['abc', 'cba']">Hello Array</h2>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    classes: "abc",
+                    isActive: false
+                }
+            },
+            methods: {
+                btnClick() {
+                    this.isActive = !this.isActive
+                },
+                getDynamicClasses() {
+                    return {active: this.isActive, why:true}
+                }
+            },
+        });
+        app.mount('#app')
+    </script>
+</body>
+</html>

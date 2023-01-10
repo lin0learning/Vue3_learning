@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h2>{{ message }}</h2>
+        <h2>当前计数： {{ counter }}</h2>
+        <h2>双倍计数： {{ counter * 2}}</h2>
+        <h2>展示信息：{{ name.split(' ') }}</h2>
+        <h2>{{ age >= 18 ? "成年人" : " 未成年人" }}</h2>
+        <h2>{{ dateFormate(date) }}</h2>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    message: "Hello Vue",
+                    counter: 100,
+                    name: "my name is liclo",
+                    age: 24,
+                    date: "20:00"
+                }
+            },
+            methods: {
+                dateFormate(e) {
+                    return "2022-07-07-" + e
+                }
+            },
+        });
+        app.mount('#app')
+    </script>
+</body>
+</html>

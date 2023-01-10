@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        table {
+            border-collapse: collapse;
+            width: 640px;
+            margin: 50px auto;
+            text-align: left;
+        }
+        thead tr th {
+            font-weight: 400;
+            color: #284767;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        thead tr th:nth-child(1) {
+            width: 50px;
+        }
+        thead tr th:nth-child(2) {
+            width: 240px;
+        }
+        thead tr th:nth-child(3) {
+            width: 120px;
+        }
+        thead tr th:nth-child(4) {
+            width: 100px;
+        }
+        thead tr th:nth-child(5) {
+            width: 120px;
+        }
+        tr {
+            height: 30px;
+            line-height: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        button {
+            background-color: #fff;
+            border: 1px solid #666;
+            border-radius: 3px;
+        }
+        .btn1 {
+            width: 20px;
+            height: 20px;
+            border-width: 1px;
+            line-height: 16px;
+        }
+        .btn2 {
+            width: 38px;
+            height: 20px;
+        }
+        .count {
+            display: flex;
+        }
+        .left {
+            flex: 3;
+        }
+        .right {
+            flex: 2;
+        }
+        .amount {
+            border-width: 1px 0;
+            text-align: center;
+            width: 40px;
+            height: 18px;
+        }
+        .active {
+            background-color: #efefef;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <template v-if="books.length">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>书籍名称</th>
+                        <th>出版日期</th>
+                        <th>价格</th>
+                        <th>购买数量</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(item, index) in books" :key="item.id" :class="{active : index === currentIndex}" @mouseover="Mousehover(index)">
+                        <td>{{ index + 1 }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.date }}</td>
+                        <td>{{ addUnit(item.price) }}</td>
+                        <td>
+                            <button class="btn1" @click="decrement(index)" :disabled="item.count === 1">-</button>
+                            <!-- <input class="amount" :value="this.books[index].count" @input="inputChange(index)"></input> -->
+                            <!-- 直接赋值 -->
+                            <input class="amount" :value="this.books[index].count" @input="this.books[index].count = $event.target.value"></input>
+                            <button class="btn1" @click="increment(index)">+</button>
+                        </td>
+                        <td><button class="btn2" @click="removeBook">移除</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="count">
+                <div class="left"></div>
+                <div class="right">Total Price: {{ addUnit(totalPrice) }}</div>
+            </div>
+        </template>
+        <template v-else>
+            <h2>购物车为空</h2>
+        </template>
+    </div>
+    <script src="./data.js"></script>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    books: books,
+                    currentIndex: -1
+                }
+            },
+            computed: {
+                totalPrice() {
+                    // 方法1: 直接遍历books
+                    let price = 0;
+                    for (const item of this.books) {
+                        price += item.price * item.count
+                    }
+                    return price
+                    // 方法2: reduce() 高阶函数
+                    // return this.books.reduce((preVal, item) => {
+                    //     return preVal + item.price * item.count
+                    // })
+                }
+            },
+            methods: {
+                addUnit(price) {
+                    return '￥' + price
+                },
+                decrement(index, item) {
+                    this.books[index].count--
+                    // item.count--
+                },
+                increment(index, item) {
+                    this.books[index].count++
+                    // item.count++
+                },
+                removeBook(index) {
+                    this.books.splice(index, 1)
+                    
+                },
+                Mousehover(index) {
+                    // console.log(index);
+                    this.currentIndex = index
+                },
+                // input的value(默认值与输入值) 响应式Total Price计算; 后续使用v-model双向绑定
+                // inputChange(index) {
+                //     // console.log(event);
+                //     this.books[index].count = event.target.value
+                // }
+            },
+        });
+        app.mount('#app')
+    </script>
+</body>
+</html>

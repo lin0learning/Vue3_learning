@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h2>{{message}}</h2>
+        <button @click="changeT">SNKRS</button>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    message: "Hello Vue"
+                }
+            },
+            methods: {
+                changeT() {
+                    this.message = "Kicks Lounge"
+                }
+            },
+            // 生命周期回调函数：当前的组件被创建时自动执行
+            // 一般在该函数中，会进行网络请求
+            created() {
+                // ajax/fetch/axios
+                console.log("created");
+
+                this.$watch("message", (val, oldVal) => {
+                    console.log("数据发生变化:", val,"<=", oldVal);
+                }, {deep: true })
+            },
+        });
+        app.mount('#app')
+    </script>
+</body>
+</html>

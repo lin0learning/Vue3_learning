@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div class="gender">
+            <label for="male">
+                <input type="radio" value="male" id="male" v-model="gender">男性
+            </label>
+            <label for="female">
+                <input type="radio" value="female" id="female" v-model="gender">女性
+            </label>
+        </div>
+        <h2>性别：{{gender}}</h2>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    gender: ""
+                }
+            }
+        });
+        app.mount('#app')
+    </script>
+</body>
+</html>
